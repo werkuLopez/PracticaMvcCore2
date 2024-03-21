@@ -6,7 +6,7 @@
     List<int> carrito = Context.Session.GetObject<List<int>>("CARRITO");
 }
 
-<<a asp-controller="Libros" asp-action="Carrito"
+<a asp-controller="Libros" asp-action="Carrito"
     class="btn btn-primary w-100 mt-3">
     Ver tu carrito
 </a>
@@ -95,9 +95,9 @@
                     }
                     else
                     {
-                        <a asp-controller="Cubos"
-                           asp-action="AnyadirCuboCarrito"
-                           asp-route-idcubo="@item.IdLibro"
+                        <a asp-controller="Libros"
+                           asp-action="AddLibroCarrito"
+                           asp-route-idlibro="@item.IdLibro"
                            class="btn btn-primary w-100">
                             Añadir libro al carrito
                         </a>

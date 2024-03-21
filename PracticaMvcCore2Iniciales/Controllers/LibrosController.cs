@@ -10,12 +10,10 @@ namespace PracticaMvcCore2Iniciales.Controllers
     public class LibrosController : Controller
     {
         private LibrosRepository repo;
-        private GenerosRepository generos;
 
-        public LibrosController(LibrosRepository repo, GenerosRepository generos)
+        public LibrosController(LibrosRepository repo)
         {
             this.repo = repo;
-            this.generos = generos;
         }
 
         public async Task<IActionResult> Index()
@@ -94,14 +92,6 @@ namespace PracticaMvcCore2Iniciales.Controllers
                 await this.repo.RealizarPedido(carrito, idusuario);
 
             return RedirectToAction("Index");
-        }
-
-        public async Task<IActionResult> _MenuGeneros()
-        {
-            List<Genero> generos =
-                await this.generos.GetAllGenerosAsync();
-
-            return PartialView("_MenuGeneros", generos);
         }
     }
 }
