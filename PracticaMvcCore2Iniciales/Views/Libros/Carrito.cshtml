@@ -1,0 +1,84 @@
+﻿@model IEnumerable<PracticaMvcCore2Iniciales.Models.Libro>
+
+@{
+    ViewData["Title"] = "Carrito";
+}
+
+<a asp-controller="Libros" asp-action="Index"
+   class="btn btn-secondary w-25 my-3">
+    Volver a libros
+</a>
+
+@if (Model == null)
+{
+    <h2 class="text-danger">No hay libros en tu carrito</h2>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdLibro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Autor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Editorial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Portada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resumen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.idGenero)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdLibro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Autor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Editorial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Portada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Resumen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Precio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.idGenero)
+                </td>
+                <td>
+                    <a asp-controller="Cubos" asp-action="EliminarCuboCarrito"
+                       asp-route-idlibro="@item.IdLibro" class="btn btn-danger w-100">
+                        Eliminar del carrito
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

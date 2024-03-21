@@ -1,0 +1,110 @@
+﻿@using PracticaMvcCore2Iniciales.Extensions
+@model List<Libro>
+
+@{
+    ///ViewData["Title"] = "Index";
+    List<int> carrito = Context.Session.GetObject<List<int>>("CARRITO");
+}
+
+<<a asp-controller="Libros" asp-action="Carrito"
+    class="btn btn-primary w-100 mt-3">
+    Ver tu carrito
+</a>
+
+@if (carrito != null)
+{
+    <h3 class="text-primary mt-3">Libros en carrito: @carrito.Count()</h3>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                IdLibro
+            </th>
+            <th>
+                Titulo
+            </th>
+            <th>
+                Autor
+            </th>
+            <th>
+                Editorial
+            </th>
+            <th>
+                Portada
+            </th>
+            <th>
+                Resumen
+            </th>
+            <th>
+                Precio
+            </th>
+            <th>
+                idGenero
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Libro item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdLibro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Autor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Editorial)
+                </td>
+                <td>
+                    <img src="~/images/@item.Portada" width="100" height="100" alt="@item.Titulo" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Resumen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Precio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.idGenero)
+                </td>
+                <td>
+                    @if (carrito != null)
+                    {
+                        @if (!carrito.Contains(item.IdLibro))
+                        {
+                            <a asp-controller="Libros"
+                               asp-action="AddLibroCarrito"
+                               asp-route-idlibro="@item.IdLibro"
+                               class="btn btn-primary w-100">
+                                Añadir libro al carrito
+                            </a>
+                        }
+                        else
+                        {
+                            <button class="btn btn-secondary w-100">
+                                libo ya en la cesta
+                            </button>
+                        }
+                    }
+                    else
+                    {
+                        <a asp-controller="Cubos"
+                           asp-action="AnyadirCuboCarrito"
+                           asp-route-idcubo="@item.IdLibro"
+                           class="btn btn-primary w-100">
+                            Añadir libro al carrito
+                        </a>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

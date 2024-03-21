@@ -1,0 +1,11 @@
+﻿@using Microsoft.Extensions.Caching.Memory
+@using PracticaMvcCore2Iniciales
+@using PracticaMvcCore2Iniciales.Models
+@using PracticaMvcCore2Iniciales.Repositories
+@using PracticaMvcCore2Iniciales.Helpers
+@using PracticaMvcCore2Iniciales.Extensions
+@using PracticaMvcCore2Iniciales.ViewComponents
+@inject IMemoryCache cache
+@inject UsuariosRepository repoUsuarios
+@inject LibrosRepository repoLibros
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers

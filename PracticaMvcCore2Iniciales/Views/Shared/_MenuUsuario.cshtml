@@ -1,0 +1,54 @@
+﻿@using System.Security.Claims
+@using PracticaMvcCore2Iniciales.Extensions;
+﻿@{
+
+    List<int> carrito = Context.Session.GetObject<List<int>>("carrito");
+}﻿
+
+@if (Context.User.Identity.IsAuthenticated == false)
+{
+    <li class="nav-item">
+        <a asp-controller="Usuarios"
+           asp-action="Perfil"
+           class="nav-link text-primary">
+            Perfil
+        </a>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a asp-controller="Usuarios"
+           asp-action="Perfil"
+           class="nav-link text-primary">
+            Perfil
+        </a>
+    </li>
+    <li class="nav-item">
+        <a asp-controller="Managed"
+           asp-action="LogOut"
+           class="nav-link text-danger">
+            Cerrar sesión
+        </a>
+    </li>
+    if (carrito != null)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Libros" asp-action="Carrito">
+                carrito
+                <span>
+                    (<b style="color:orangered;">@carrito.Count</b>)
+                </span>
+            </a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Libros" asp-action="Carrito">
+                carrito
+            </a>
+        </li>
+    }
+
+}

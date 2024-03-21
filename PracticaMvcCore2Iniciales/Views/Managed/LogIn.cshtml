@@ -1,0 +1,14 @@
+﻿﻿<h1>Log In</h1>
+
+<h2 class="text-danger">@ViewData["mensaje"]</h2>
+
+<form method="post" class="row gap-3">
+    <label class="form-label">Email</label>
+    <input type="text" name="email" class="form-control" />
+    <label class="form-label">Password</label>
+    <input type="text" name="password" class="form-control" />
+    <button class="btn btn-outline-primary mt-3 w-100">iniciar sesion</button>
+    <a asp-controller="Managed" asp-action="SignIn" class="text-decoration-underline">
+        no tengo cuenta
+    </a>
+</form>

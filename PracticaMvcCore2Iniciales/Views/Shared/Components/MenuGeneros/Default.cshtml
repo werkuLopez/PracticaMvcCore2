@@ -1,0 +1,23 @@
+﻿@model List<Genero>
+
+@if (Model != null)
+{
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            Cubos
+        </a>
+        <ul class="dropdown-menu">
+            @foreach (Genero genero in Model)
+            {
+                <li>
+                    <a asp-controller="Cubos"
+                       asp-action="BuscarCubo"
+                       asp-route-genero="@genero.IdGenero"
+                       class="dropdown-item text-dark">
+                        @genero.Nombre
+                    </a>
+                </li>
+            }
+        </ul>
+    </li>
+}
