@@ -13,7 +13,7 @@ namespace PracticaMvcCore2Iniciales.Models
         public int IdFactura { get; set; }
         [Column("FECHA")]
         public DateTime Fecha { get; set; }
-        [Column("IDLIBOR")]
+        [Column("IDLIBRO")]
         public int IdLibro { get; set; }
         [Column("IDUSUARIO")]
         public int IdUsuario { get; set; }

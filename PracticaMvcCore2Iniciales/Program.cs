@@ -34,6 +34,7 @@ builder.Services.AddTransient<HelperPathProvider>();
 string conn = builder.Configuration.GetConnectionString("SQLLibros");
 builder.Services.AddTransient<LibrosRepository>();
 builder.Services.AddTransient<UsuariosRepository>();
+builder.Services.AddTransient<GenerosRepository>();
 builder.Services.AddDbContext<LibrosContext>(options =>
     options.UseSqlServer(conn));
 

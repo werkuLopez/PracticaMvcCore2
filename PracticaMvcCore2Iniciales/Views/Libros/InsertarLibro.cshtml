@@ -1,0 +1,18 @@
+﻿
+@model List<Genero>
+
+<form method="post" asp-action="InsertarLibro">
+
+    <input type="text" name="titulo" placeholder="titulo" />
+    <input type="text" name="autor" placeholder="Autor" />
+    <input type="text" name="Editorial" placeholder="Editorial" />
+    <input type="text" name="Precio" placeholder="Precio" />
+    <select name="genero" >
+        @foreach(Genero genero in Model)
+        {
+            <option value="@genero.IdGenero">@genero.Nombre</option>
+        }
+    </select>
+    <input type="file" name="file" placeholder="" />
+    <textarea  name="resumen" placeholder="resumen del libro" rows="2" cols="5" ></textarea>
+</form>

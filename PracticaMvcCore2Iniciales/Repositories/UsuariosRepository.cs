@@ -72,5 +72,10 @@ namespace PracticaMvcCore2Iniciales.Repositories
 
             return pedido;
         }        
+
+        public async Task<List<Usuario>> GetAllUsers()
+        {
+            return await this.context.Usuarios.ToListAsync();
+        }
     }
 }

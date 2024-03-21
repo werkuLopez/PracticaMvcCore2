@@ -1,0 +1,68 @@
+﻿@model IEnumerable<PracticaMvcCore2Iniciales.Models.Pedido>
+
+@{
+    ViewData["Title"] = "PedidosUsuario";
+    List<Libro> libros = ViewData["libros"] as List<Libro>;
+    List<Usuario> usuarios = ViewData["usuarios"] as List<Usuario>;
+}
+
+<h1>PedidosUsuario</h1>
+
+<p>
+    <a asp-action="Index">volver</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdPedido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdFactura)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdLibro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdUsuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cantidad)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdPedido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdFactura)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                <td>
+                    @{
+                        var libro = libros.FirstOrDefault(x => x.IdLibro == item.IdLibro);
+                    }
+                    @libro.Titulo
+                </td>
+                <td>
+                    @{
+                        var usuario = usuarios.FirstOrDefault(x => x.IdUsuario == item.IdUsuario);
+                    }
+                    @usuario.Nombre
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cantidad)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

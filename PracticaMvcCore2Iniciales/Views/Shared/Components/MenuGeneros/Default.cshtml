@@ -10,9 +10,9 @@
             @foreach (Genero genero in Model)
             {
                 <li>
-                    <a asp-controller="Cubos"
-                       asp-action="BuscarCubo"
-                       asp-route-genero="@genero.IdGenero"
+                    <a asp-controller="Libros"
+                       asp-action="Index"
+                       asp-route-idgenero="@genero.IdGenero"
                        class="dropdown-item text-dark">
                         @genero.Nombre
                     </a>

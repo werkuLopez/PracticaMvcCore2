@@ -10,16 +10,31 @@ namespace PracticaMvcCore2Iniciales.Controllers
     public class LibrosController : Controller
     {
         private LibrosRepository repo;
+        private GenerosRepository repoGenero;
+        private UsuariosRepository repouser;
 
-        public LibrosController(LibrosRepository repo)
+        public LibrosController(LibrosRepository repo,
+            GenerosRepository generos,
+            UsuariosRepository user)
         {
             this.repo = repo;
+            this.repoGenero = generos;
+            this.repouser = user;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? idgenero)
         {
-            List<Libro> libros =
-                await this.repo.GetAllLibrosAsync();
+            List<Libro> libros;
+
+            if (idgenero != null)
+            {
+                libros = await this.repo.GetLibrosByGeneroAsync(idgenero.Value);
+            }
+            else
+            {
+                libros =
+                    await this.repo.GetAllLibrosAsync();
+            }
 
             return View(libros);
         }
@@ -53,7 +68,7 @@ namespace PracticaMvcCore2Iniciales.Controllers
         {
             List<int> carrito = HttpContext.Session.GetObject<List<int>>("carrito");
 
-            if(carrito != null)
+            if (carrito != null)
             {
                 List<Libro> libros = await this.repo.GetLibrosSession(carrito);
                 return View(libros);
@@ -82,9 +97,11 @@ namespace PracticaMvcCore2Iniciales.Controllers
         }
 
         [AuthorizeUsuario]
-        public async Task<IActionResult> RealizarCompra(int idusuario)
+        public async Task<IActionResult> RealizarCompra()
         {
-            //ClaimsPrincipal idusuario = HttpContext.User;
+
+            int idusuario = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
             List<int> carrito =
                 HttpContext.Session.GetObject<List<int>>("carrito");
 
@@ -92,6 +109,25 @@ namespace PracticaMvcCore2Iniciales.Controllers
                 await this.repo.RealizarPedido(carrito, idusuario);
 
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> InsertarLibro()
+        {
+            List<Genero> generos =
+                await this.repoGenero.GetAllGenerosAsync();
+
+            return View(generos);
+        }
+
+        [AuthorizeUsuario]
+        public async Task<IActionResult> PedidosUsuario()
+        {
+            int idusuario = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            List<Pedido> pedidos = await this.repo.PedidosUsuario(idusuario);
+
+            ViewData["usuarios"] = await this.repouser.GetAllUsers();
+            ViewData["libros"] = await this.repo.GetAllLibrosAsync();
+            return View(pedidos);
         }
     }
 }
